@@ -10,23 +10,28 @@ public class Main {
         Notifier nt = new Notifier();
         Integer numPessoas;
 
-
-        loopPrincipal:
-        while(true){
-            System.out.print("Digite o número de pessoas que irá receber a notificação: ");
-            numPessoas = Integer.parseInt(sc.nextLine());
-            System.out.println();
-            if(numPessoas == 0){
-                break loopPrincipal;
+        try {
+            loopPrincipal:
+            while (true) {
+                System.out.print("Digite o número de pessoas que irá receber a notificação: ");
+                numPessoas = Integer.parseInt(sc.nextLine());
+                System.out.println();
+                if (numPessoas == 0) {
+                    break loopPrincipal;
+                }
+                nt.limparMensagem();
+                for (int i = 0; i < numPessoas; i++) {
+                    System.out.println("Digite os nomes");
+                    nt.adicionarPessoa(new Pessoa(sc.nextLine()));
+                }
+                System.out.println("Digite a mensagem da notificação: ");
+                nt.setMensagem(sc.nextLine());
+                nt.enviarMensagem();
+                nt.addInHashMap();
+                nt.showHashMap();
             }
-            nt.limparMensagem();
-            for(int i=0; i< numPessoas; i++) {
-                System.out.println("Digite os nomes");
-                nt.adicionarPessoa(new Pessoa(sc.nextLine()));
-            }
-            System.out.println("Digite a mensagem da notificação: ");
-            nt.setMensagem(sc.nextLine());
-            nt.enviarMensagem();
+        } catch (NumberFormatException e){
+            System.out.println(e);
         }
     }
 }
